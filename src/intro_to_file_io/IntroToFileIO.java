@@ -6,10 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class IntroToFileIO {
 	public static void main(String[] args) {
-		
 		//Read from a file one character at a time
 		try {
 			FileReader fr = new FileReader("src/intro_to_file_io/test.txt");
@@ -29,7 +29,7 @@ public class IntroToFileIO {
 		//Read from a file one line at a time
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("src/intro_to_file_io/test.txt"));
-			
+			System.out.println();
 			String line = br.readLine();
 			while(line != null){
 				System.out.println(line);
