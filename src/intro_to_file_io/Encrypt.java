@@ -11,7 +11,7 @@ public class Encrypt {
 		String message = JOptionPane.showInputDialog(null, "Type a Message");
 		String newMessage = "";
 		try {
-			FileWriter fw = new FileWriter("src/intro_to_file_io/test3.txt");
+			FileWriter fw = new FileWriter("src/intro_to_file_io/test3_or.txt");
 			fw.write(message);
 			fw.close();
 		} catch (IOException e) {
