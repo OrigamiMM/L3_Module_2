@@ -10,38 +10,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.jar.Attributes.Name;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class To_Do_List_Tracker implements ActionListener {
 	ArrayList<String> tasks = new ArrayList<String>();
 	ArrayList<String> loadedtask = new ArrayList<>();
-	String task = "";
+	String task = "Your task is shown here";
 	JFrame jF = new JFrame("To Do List");
 	JPanel jP = new JPanel();
+	// JPanel jP2 = new JPanel();
 	JButton add = new JButton("Add");
 	JButton remove = new JButton("Remove");
 	JButton save = new JButton("Save");
 	JButton load = new JButton("load");
+	//JTextField text = new JTextField(task);
+	JLabel text = new JLabel(task);
 	String Name = "";
 
 	public static void main(String[] args) {
 		To_Do_List_Tracker to = new To_Do_List_Tracker();
 		to.GUI();
+		to.displaytask();
 	}
 
 	void GUI() {
 		jF.setVisible(true);
+		jP.setLayout(new BoxLayout(jP, BoxLayout.PAGE_AXIS));
 		jF.add(jP);
+		// jF.add(jP2);
 		jF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jP.add(add);
 		jP.add(remove);
 		jP.add(save);
 		jP.add(load);
+		jP.add(text);
 		add.addActionListener(this);
 		remove.addActionListener(this);
 		save.addActionListener(this);
@@ -60,12 +69,10 @@ public class To_Do_List_Tracker implements ActionListener {
 		if (e.getSource() == remove) {
 			String rem = JOptionPane.showInputDialog("What was the task you wanted to remove?");
 			int i = 0;
-			for (String task : tasks) {
-				if (task.contains(rem)) {
+			for (int j = 0; j < tasks.size(); j++) {
+				if (tasks.get(j).equals(rem)) {
 					System.out.println("Removed: " + tasks.get(i));
 					tasks.remove(i);
-				} else {
-					System.out.println(task);
 				}
 				i = i + 1;
 			}
@@ -87,6 +94,7 @@ public class To_Do_List_Tracker implements ActionListener {
 			int returnVal = jfc.showOpenDialog(null);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				String fileName = jfc.getSelectedFile().getAbsolutePath();
+				System.out.println();
 				System.out.println(fileName);
 				Name = fileName;
 			}
@@ -108,10 +116,19 @@ public class To_Do_List_Tracker implements ActionListener {
 				// TODO Auto-generated catch block
 				y.printStackTrace();
 			}
-			for (int i = 0; i < loadedtask.size()-1; i++) {
-				System.out.println(loadedtask.get(i));
-			}
 		}
+	}
 
+	void displaytask() {
+		String newword = "";
+		String word = "The text has been changed";
+		for (int i = 0; i < loadedtask.size() - 1; i++) {
+			newword += loadedtask.get(i) + "\n";
+			//task = newword;
+		}
+		task = word;
+		System.out.println(task);
+		System.out.println("displaytask is running");
 	}
 }
+
