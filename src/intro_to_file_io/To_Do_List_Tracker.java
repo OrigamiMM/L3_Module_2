@@ -17,12 +17,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class To_Do_List_Tracker implements ActionListener {
 	ArrayList<String> tasks = new ArrayList<String>();
 	ArrayList<String> loadedtask = new ArrayList<>();
-	String task = "Your task is shown here";
+	String task = "Tasks shown here";
 	JFrame jF = new JFrame("To Do List");
 	JPanel jP = new JPanel();
 	// JPanel jP2 = new JPanel();
@@ -30,14 +31,15 @@ public class To_Do_List_Tracker implements ActionListener {
 	JButton remove = new JButton("Remove");
 	JButton save = new JButton("Save");
 	JButton load = new JButton("load");
-	//JTextField text = new JTextField(task);
-	JLabel text = new JLabel(task);
+	// JTextField text = new JTextField(task);
+	JTextArea textt = new JTextArea(task, 1, 10);
+	// JLabel text = new JLabel(task);
 	String Name = "";
 
 	public static void main(String[] args) {
 		To_Do_List_Tracker to = new To_Do_List_Tracker();
 		to.GUI();
-		to.displaytask();
+		// to.displaytask();
 	}
 
 	void GUI() {
@@ -50,7 +52,8 @@ public class To_Do_List_Tracker implements ActionListener {
 		jP.add(remove);
 		jP.add(save);
 		jP.add(load);
-		jP.add(text);
+		// jP.add(text);
+		jP.add(textt);
 		add.addActionListener(this);
 		remove.addActionListener(this);
 		save.addActionListener(this);
@@ -102,12 +105,11 @@ public class To_Do_List_Tracker implements ActionListener {
 				BufferedReader br = new BufferedReader(new FileReader(Name));
 				System.out.println();
 				String line = br.readLine();
-				loadedtask.add(line);
 				while (line != null) {
+					loadedtask.add(line + "\n");
 					line = br.readLine();
-					loadedtask.add(line);
 				}
-
+				loadedtask.add("");
 				br.close();
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
@@ -116,19 +118,24 @@ public class To_Do_List_Tracker implements ActionListener {
 				// TODO Auto-generated catch block
 				y.printStackTrace();
 			}
+			String newword = "";
+			for (int i = 0; i < loadedtask.size(); i++) {
+				newword += loadedtask.get(i);
+			}
+			task = newword;
+			textt.setText(task);
+			jF.repaint();
 		}
 	}
 
-	void displaytask() {
-		String newword = "";
-		String word = "The text has been changed";
-		for (int i = 0; i < loadedtask.size() - 1; i++) {
-			newword += loadedtask.get(i) + "\n";
-			//task = newword;
-		}
-		task = word;
-		System.out.println(task);
-		System.out.println("displaytask is running");
-	}
+	// void displaytask() {
+	// String newword = "Task(s) shown here";
+	// for (int i = 0; i < loadedtask.size() - 1; i++) {
+	// newword += loadedtask.get(i) + "\n";
+	//
+	// }
+	// text.setText(task);
+	// System.out.println(task);
+	// System.out.println("displaytask is running");
+	// }
 }
-
